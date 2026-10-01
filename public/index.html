@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Claude на rout.my</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+<div class="app" id="app">
+
+  <aside class="side">
+    <div class="side-top">
+      <div class="brand"><span class="spark">✳</span>Claude</div>
+      <button class="iconbtn" id="btnTheme" title="Тема">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+      <button class="iconbtn" id="btnSettings" title="Настройки">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+      </button>
+    </div>
+
+    <button class="newchat" id="btnNew"><span class="plus">+</span>Новый чат</button>
+
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="search" placeholder="Поиск по чатам" />
+    </div>
+
+    <div class="side-label">Недавние</div>
+    <div class="chatlist" id="chatlist"></div>
+
+    <div class="side-bottom">
+      <div class="status" id="status">…</div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <button class="iconbtn" id="btnSide" title="Свернуть панель">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M9 4v16"/></svg>
+      </button>
+      <div class="title" id="title">Claude</div>
+      <div class="cwd" id="cwd"></div>
+      <span class="chip" id="modelChip" title="Модель и путь">—</span>
+      <button class="iconbtn" id="btnBrowser" title="Панель браузера">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M15 4v16"/></svg>
+      </button>
+    </div>
+    <button class="jump" id="jump" title="Вниз" hidden>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+    </button>
+
+    <div class="scroll" id="scroll">
+      <div class="empty" id="empty">
+        <div class="spark">✳</div>
+        <h1 id="greeting">Чем займёмся?</h1>
+        <p>Это настоящий Claude Code — со скиллами, памятью и инструментами, — но на вашем ключе rout.my.</p>
+      </div>
+      <div class="thread" id="thread" hidden></div>
+      <div class="thinking" id="thinking" hidden>
+        <span class="spark">✳</span>
+        <span class="shimmer" id="thinkingText">Думает…</span>
+        <span class="elapsed" id="elapsed"></span>
+        <span class="phase-note" id="phaseNote"></span>
+      </div>
+    </div>
+
+    <div class="composer">
+      <div class="box" id="box">
+        <div class="thumbs" id="thumbs" hidden></div>
+        <textarea id="input" rows="1" placeholder="Напишите Claude…"></textarea>
+        <div class="row">
+          <button class="iconbtn" id="btnAttach" title="Приложить картинку">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+          </button>
+          <input type="file" id="file" accept="image/*" multiple hidden />
+          <select class="sel" id="mode" title="Права инструментов">
+            <option value="default">Спрашивать</option>
+            <option value="acceptEdits">Правки без вопросов</option>
+            <option value="plan">Только план</option>
+            <option value="bypassPermissions">Всё без вопросов</option>
+          </select>
+          <div class="sp"></div>
+          <select class="sel" id="engine" title="Через что идёт запрос">
+            <option value="rout">rout.my</option>
+            <option value="subscription">Подписка</option>
+          </select>
+          <select class="sel model" id="model" title="Модель"></select>
+          <button class="send" id="btnSend" title="Отправить (Enter)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="hint" id="hint">Enter — отправить, Shift+Enter — новая строка, Esc — остановить. Картинки можно вставить из буфера.</div>
+    </div>
+  </main>
+
+  <div class="pane-head" id="paneHead" hidden>
+    <button class="iconbtn" id="paneBack" title="Назад">‹</button>
+    <button class="iconbtn" id="paneReload" title="Обновить">↻</button>
+    <input id="paneUrl" placeholder="Адрес или путь к файлу" spellcheck="false" />
+    <button class="iconbtn" id="paneExternal" title="Открыть в системном браузере">↗</button>
+    <button class="iconbtn" id="paneClose" title="Закрыть панель">×</button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>

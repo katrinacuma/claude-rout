@@ -1,0 +1,22 @@
+{
+  "name": "claude-rout",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Desktop-окно для Claude Code: чаты, история сессий, карточки прав, встроенный браузер. Работает через Anthropic-совместимый мост или по подписке.",
+  "type": "module",
+  "main": "electron/main.mjs",
+  "scripts": {
+    "app": "electron .",
+    "start": "node server/index.mjs"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "electron": "^43.1.1"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "license": "MIT"
+}

@@ -1,0 +1,11 @@
+{
+  "port": 5179,
+  "engine": "subscription",
+  "bridgeUrl": "http://127.0.0.1:8787",
+  "bridgeDir": "../anthropic-bridge",
+  "bridgeScript": "bridge.mjs",
+  "claudeExe": "%APPDATA%\\npm\\node_modules\\@anthropic-ai\\claude-code\\bin\\claude.exe",
+  "permissionMode": "default",
+  "idleKillMinutes": 15,
+  "theme": "dark"
+}
